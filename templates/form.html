@@ -1,110 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Career Interest Form</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        h1 {
-            animation: shimmer 2s infinite linear;
-            background: linear-gradient(90deg, #ff8a00, #e52e71, #9b00ff, #ff8a00);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-size: 200% auto;
-        }
-        @keyframes shimmer {
-            to { background-position: 200% center; }
-        }
-        .card {
-            animation: fadeInUp 1s ease forwards;
-            transform: translateY(50px);
-            opacity: 0;
-        }
-        @keyframes fadeInUp {
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-        .btn-primary {
-            animation: bounce 2s infinite;
-        }
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
-        }
-        .form-check-input:checked + .form-check-label {
-            font-weight: bold;
-            color: #e52e71;
-            transform: scale(1.1);
-            transition: transform 0.2s, color 0.2s;
-        }
-        .audio-container {
-            animation: fadeIn 2s ease forwards;
-            opacity: 0;
-        }
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
-    </style>
-</head>
-<body>
+  <meta charset="UTF-8">
+  <title>Animated Career Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Particles.js -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+    }
 
-<div class="container">
-    <h1 class="text-center mb-4">🚀 Career Interest Form 🚀</h1>
+    /* Animated Gradient Background */
+    body {
+      background: linear-gradient(-45deg, #ff6b6b, #fbc531, #4cd137, #00a8ff);
+      background-size: 600% 600%;
+      animation: gradientBG 15s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 40px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.37);
+      text-align: center;
+      color: #fff;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    input[type="text"], select {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.3);
+      color: #fff;
+      font-size: 16px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    input[type="text"]:focus, select:focus {
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin: 10px 0;
+    }
+
+    input[type="checkbox"] {
+      margin-right: 10px;
+      transform: scale(1.2);
+      accent-color: #fff;
+    }
+
+    button {
+      padding: 12px 25px;
+      margin-top: 20px;
+      background: linear-gradient(45deg, #00c6ff, #0072ff);
+      border: none;
+      border-radius: 50px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 114, 255, 0.6);
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      box-shadow: 0 6px 20px rgba(0, 114, 255, 0.8);
+      transform: scale(1.05);
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 15px;
+      color: #fff;
+      text-decoration: underline;
+      font-size: 14px;
+    }
+
+    .message {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    /* Confetti */
+    .confetti-piece {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #ffeb3b;
+      border-radius: 50%;
+      animation: confetti-fall 3s ease-out forwards;
+    }
+
+    @keyframes confetti-fall {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(100vh) rotate(360deg); }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="particles-js"></div>
+  
+  <div class="container">
+    <h2>Career Interest Form</h2>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
         {% for category, message in messages %}
-          <div class="alert alert-{{ 'success' if category == 'success' else 'danger' }} alert-dismissible fade show" role="alert">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
+          <div class="message {{ category }}">{{ message }}</div>
+          {% if category == 'success' %}
+          <audio autoplay>
+            <source src="{{ url_for('static', filename='voice.mp3') }}?t={{ timestamp }}" type="audio/mpeg">
+          </audio>
+          <script>
+            document.addEventListener('DOMContentLoaded', () => {
+              for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti-piece');
+                confetti.style.left = `${Math.random() * 100}vw`;
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 60%)`;
+                confetti.style.animationDelay = `${Math.random()}s`;
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 3000);
+              }
+            });
+          </script>
+          {% endif %}
         {% endfor %}
       {% endif %}
     {% endwith %}
 
-    <form method="POST" class="card p-4 shadow-lg">
-        <div class="mb-3">
-            <label for="name" class="form-label">👤 Your Name</label>
-            <input type="text" name="name" id="name" class="form-control" required>
-        </div>
+    <form method="post">
+      <input type="text" name="name" placeholder="Your Name" required>
 
-        <div class="mb-3">
-            <label class="form-label">🎨 Your Interests</label>
-            {% for item in ['drawing', 'dancing', 'singing', 'coding', 'sports', 'photographer'] %}
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="{{ item }}" value="Yes" id="{{ item }}">
-                <label class="form-check-label" for="{{ item }}">{{ item.capitalize() }}</label>
-            </div>
-            {% endfor %}
-        </div>
+      <div class="checkbox-label"><input type="checkbox" name="drawing" value="Yes"> Drawing</div>
+      <div class="checkbox-label"><input type="checkbox" name="dancing" value="Yes"> Dancing</div>
+      <div class="checkbox-label"><input type="checkbox" name="singing" value="Yes"> Singing</div>
+      <div class="checkbox-label"><input type="checkbox" name="coding" value="Yes"> Coding</div>
+      <div class="checkbox-label"><input type="checkbox" name="sports" value="Yes"> Sports</div>
+      <div class="checkbox-label"><input type="checkbox" name="photographer" value="Yes"> Photographer</div>
 
-        <button type="submit" class="btn btn-primary w-100">🔥 Submit 🔥</button>
+      <button type="submit">Submit</button>
     </form>
 
-    {% if timestamp %}
-    <div class="text-center mt-4 audio-container">
-        <audio controls autoplay>
-            <source src="{{ url_for('static', filename='voice.mp3') }}?{{ timestamp }}" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-    </div>
-    {% endif %}
+    <a href="{{ url_for('show_responses') }}">View All Responses</a>
+  </div>
 
-    <div class="text-center mt-3">
-        <a href="{{ url_for('show_responses') }}" class="btn btn-outline-dark">📊 View All Responses</a>
-    </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 80 },
+        size: { value: 3 },
+        color: { value: "#ffffff" },
+        opacity: { value: 0.5, random: true },
+        move: { speed: 2 },
+        line_linked: { enable: true, color: "#fff" }
+      },
+      interactivity: {
+        events: {
+          onhover: { enable: true, mode: "repulse" },
+          onclick: { enable: true, mode: "push" }
+        }
+      }
+    });
+  </script>
 </body>
 </html>
