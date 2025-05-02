@@ -4,11 +4,62 @@
     <meta charset="UTF-8">
     <title>Career Interest Form</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        h1 {
+            animation: shimmer 2s infinite linear;
+            background: linear-gradient(90deg, #ff8a00, #e52e71, #9b00ff, #ff8a00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+        }
+        @keyframes shimmer {
+            to { background-position: 200% center; }
+        }
+        .card {
+            animation: fadeInUp 1s ease forwards;
+            transform: translateY(50px);
+            opacity: 0;
+        }
+        @keyframes fadeInUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .btn-primary {
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        .form-check-input:checked + .form-check-label {
+            font-weight: bold;
+            color: #e52e71;
+            transform: scale(1.1);
+            transition: transform 0.2s, color 0.2s;
+        }
+        .audio-container {
+            animation: fadeIn 2s ease forwards;
+            opacity: 0;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+    </style>
 </head>
-<body class="bg-light">
+<body>
 
-<div class="container mt-5">
-    <h1 class="text-center mb-4">Career Interest Form</h1>
+<div class="container">
+    <h1 class="text-center mb-4">🚀 Career Interest Form 🚀</h1>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
@@ -21,45 +72,27 @@
       {% endif %}
     {% endwith %}
 
-    <form method="POST" class="card p-4 shadow">
+    <form method="POST" class="card p-4 shadow-lg">
         <div class="mb-3">
-            <label for="name" class="form-label">Your Name</label>
+            <label for="name" class="form-label">👤 Your Name</label>
             <input type="text" name="name" id="name" class="form-control" required>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Your Interests</label>
+            <label class="form-label">🎨 Your Interests</label>
+            {% for item in ['drawing', 'dancing', 'singing', 'coding', 'sports', 'photographer'] %}
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="drawing" value="Yes" id="drawing">
-                <label class="form-check-label" for="drawing">Drawing</label>
+                <input class="form-check-input" type="checkbox" name="{{ item }}" value="Yes" id="{{ item }}">
+                <label class="form-check-label" for="{{ item }}">{{ item.capitalize() }}</label>
             </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="dancing" value="Yes" id="dancing">
-                <label class="form-check-label" for="dancing">Dancing</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="singing" value="Yes" id="singing">
-                <label class="form-check-label" for="singing">Singing</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="coding" value="Yes" id="coding">
-                <label class="form-check-label" for="coding">Coding</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="sports" value="Yes" id="sports">
-                <label class="form-check-label" for="sports">Sports</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="photographer" value="Yes" id="photographer">
-                <label class="form-check-label" for="photographer">Photography</label>
-            </div>
+            {% endfor %}
         </div>
 
-        <button type="submit" class="btn btn-primary w-100">Submit</button>
+        <button type="submit" class="btn btn-primary w-100">🔥 Submit 🔥</button>
     </form>
 
     {% if timestamp %}
-    <div class="text-center mt-4">
+    <div class="text-center mt-4 audio-container">
         <audio controls autoplay>
             <source src="{{ url_for('static', filename='voice.mp3') }}?{{ timestamp }}" type="audio/mpeg">
             Your browser does not support the audio element.
@@ -68,7 +101,7 @@
     {% endif %}
 
     <div class="text-center mt-3">
-        <a href="{{ url_for('show_responses') }}" class="btn btn-outline-secondary">View All Responses</a>
+        <a href="{{ url_for('show_responses') }}" class="btn btn-outline-dark">📊 View All Responses</a>
     </div>
 </div>
 
