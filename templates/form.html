@@ -1,33 +1,27 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <title>Animated Career Form</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- Particles.js -->
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-  
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <style>
-    body, html {
+    html, body {
       margin: 0;
       padding: 0;
       height: 100%;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       overflow: hidden;
     }
 
-    /* Animated Gradient Background */
     body {
-      background: linear-gradient(-45deg, #ff6b6b, #fbc531, #4cd137, #00a8ff);
-      background-size: 600% 600%;
+      background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+      background-size: 400% 400%;
       animation: gradientBG 15s ease infinite;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
+      transition: background-color 0.5s ease, color 0.5s ease;
     }
 
     @keyframes gradientBG {
@@ -36,174 +30,154 @@
       100% { background-position: 0% 50%; }
     }
 
-    #particles-js {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
+    .container {
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 15px;
+      padding: 40px;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      backdrop-filter: blur(10px);
+      text-align: center;
     }
 
-    .container {
-      position: relative;
-      z-index: 2;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(15px);
-      border-radius: 20px;
-      padding: 40px;
-      width: 90%;
-      max-width: 500px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.37);
-      text-align: center;
-      color: #fff;
+    body.dark .container {
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
     }
 
     h2 {
       margin-bottom: 20px;
     }
 
-    input[type="text"], select {
+    input, button, label {
       width: 100%;
+      margin-bottom: 15px;
       padding: 12px;
-      margin: 10px 0;
+      border-radius: 8px;
       border: none;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.3);
-      color: #fff;
       font-size: 16px;
-      outline: none;
-      transition: all 0.3s ease;
     }
 
-    input[type="text"]:focus, select:focus {
-      background: rgba(255, 255, 255, 0.5);
+    input, select {
+      background: #f0f0f0;
     }
 
-    .checkbox-label {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      margin: 10px 0;
-    }
-
-    input[type="checkbox"] {
-      margin-right: 10px;
-      transform: scale(1.2);
-      accent-color: #fff;
+    body.dark input, body.dark select {
+      background: #333;
+      color: white;
     }
 
     button {
-      padding: 12px 25px;
-      margin-top: 20px;
-      background: linear-gradient(45deg, #00c6ff, #0072ff);
-      border: none;
-      border-radius: 50px;
+      background: #23a6d5;
       color: white;
-      font-size: 16px;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0, 114, 255, 0.6);
-      transition: all 0.3s ease;
+      transition: transform 0.3s ease;
     }
 
     button:hover {
-      box-shadow: 0 6px 20px rgba(0, 114, 255, 0.8);
-      transform: scale(1.05);
+      transform: scale(1.1);
     }
 
-    a {
-      display: inline-block;
-      margin-top: 15px;
-      color: #fff;
-      text-decoration: underline;
-      font-size: 14px;
+    .toggle-theme {
+      margin-bottom: 20px;
     }
 
-    .message {
-      margin-bottom: 10px;
-      font-weight: bold;
+    .toggle-theme button {
+      background: #333;
+      color: white;
     }
 
-    /* Confetti */
-    .confetti-piece {
+    body.dark .toggle-theme button {
+      background: #f0f0f0;
+      color: #333;
+    }
+
+    #particles-js {
       position: absolute;
-      width: 10px;
-      height: 10px;
-      background-color: #ffeb3b;
-      border-radius: 50%;
-      animation: confetti-fall 3s ease-out forwards;
-    }
-
-    @keyframes confetti-fall {
-      0% { transform: translateY(0) rotate(0deg); }
-      100% { transform: translateY(100vh) rotate(360deg); }
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
     }
   </style>
 </head>
-
 <body>
-  <div id="particles-js"></div>
-  
-  <div class="container">
-    <h2>Career Interest Form</h2>
+<div id="particles-js"></div>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        {% for category, message in messages %}
-          <div class="message {{ category }}">{{ message }}</div>
-          {% if category == 'success' %}
-          <audio autoplay>
-            <source src="{{ url_for('static', filename='voice.mp3') }}?t={{ timestamp }}" type="audio/mpeg">
-          </audio>
+<div class="container">
+  <div class="toggle-theme">
+    <button onclick="toggleDarkMode()">Toggle Dark Mode 🌙</button>
+  </div>
+
+  <h2>Career Interest Form</h2>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="message {{ category }}">{{ message }}</div>
+        {% if category == 'success' %}
           <script>
             document.addEventListener('DOMContentLoaded', () => {
-              for (let i = 0; i < 50; i++) {
-                const confetti = document.createElement('div');
-                confetti.classList.add('confetti-piece');
-                confetti.style.left = `${Math.random() * 100}vw`;
-                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 60%)`;
-                confetti.style.animationDelay = `${Math.random()}s`;
-                document.body.appendChild(confetti);
-                setTimeout(() => confetti.remove(), 3000);
+              for (let i = 0; i < 30; i++) {
+                const emoji = document.createElement('div');
+                emoji.textContent = ['🎉','✨','🎊','💥'][Math.floor(Math.random() * 4)];
+                emoji.style.position = 'fixed';
+                emoji.style.left = Math.random() * 100 + 'vw';
+                emoji.style.top = '-2em';
+                emoji.style.fontSize = '2em';
+                emoji.style.animation = `fall ${2 + Math.random() * 3}s ease-out forwards`;
+                document.body.appendChild(emoji);
+                setTimeout(() => emoji.remove(), 5000);
               }
             });
           </script>
-          {% endif %}
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
+          <style>
+            @keyframes fall {
+              to { transform: translateY(110vh) rotate(360deg); }
+            }
+          </style>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
 
-    <form method="post">
-      <input type="text" name="name" placeholder="Your Name" required>
+  <form method="post">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <label><input type="checkbox" name="drawing" value="Yes"> Drawing</label>
+    <label><input type="checkbox" name="dancing" value="Yes"> Dancing</label>
+    <label><input type="checkbox" name="singing" value="Yes"> Singing</label>
+    <label><input type="checkbox" name="coding" value="Yes"> Coding</label>
+    <label><input type="checkbox" name="sports" value="Yes"> Sports</label>
+    <label><input type="checkbox" name="photographer" value="Yes"> Photographer</label>
+    <button type="submit">Submit</button>
+  </form>
 
-      <div class="checkbox-label"><input type="checkbox" name="drawing" value="Yes"> Drawing</div>
-      <div class="checkbox-label"><input type="checkbox" name="dancing" value="Yes"> Dancing</div>
-      <div class="checkbox-label"><input type="checkbox" name="singing" value="Yes"> Singing</div>
-      <div class="checkbox-label"><input type="checkbox" name="coding" value="Yes"> Coding</div>
-      <div class="checkbox-label"><input type="checkbox" name="sports" value="Yes"> Sports</div>
-      <div class="checkbox-label"><input type="checkbox" name="photographer" value="Yes"> Photographer</div>
+  <a href="{{ url_for('show_responses') }}" style="color: inherit;">View All Responses</a>
+</div>
 
-      <button type="submit">Submit</button>
-    </form>
-
-    <a href="{{ url_for('show_responses') }}">View All Responses</a>
-  </div>
-
-  <script>
-    particlesJS('particles-js', {
-      particles: {
-        number: { value: 80 },
-        size: { value: 3 },
-        color: { value: "#ffffff" },
-        opacity: { value: 0.5, random: true },
-        move: { speed: 2 },
-        line_linked: { enable: true, color: "#fff" }
-      },
-      interactivity: {
-        events: {
-          onhover: { enable: true, mode: "repulse" },
-          onclick: { enable: true, mode: "push" }
-        }
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+<script>
+  particlesJS('particles-js', {
+    particles: {
+      number: { value: 80 },
+      size: { value: 3 },
+      move: { speed: 1 },
+      line_linked: { enable: true },
+      color: { value: '#ffffff' },
+      opacity: { value: 0.5 }
+    },
+    interactivity: {
+      events: {
+        onhover: { enable: true, mode: 'repulse' }
       }
-    });
-  </script>
+    }
+  });
+
+  function toggleDarkMode() {
+    document.body.classList.toggle('dark');
+  }
+</script>
 </body>
 </html>
