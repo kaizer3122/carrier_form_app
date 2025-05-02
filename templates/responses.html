@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Responses</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f3e5f5;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      overflow-y: auto; /* ✅ allow scroll */
+    }
+
+    .bg-particles {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .bg-particles span {
+      position: absolute;
+      display: block;
+      width: 20px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      animation: float 20s linear infinite;
+    }
+
+    .bg-particles span:nth-child(1) { left: 10%; animation-duration: 22s; animation-delay: 0s; }
+    .bg-particles span:nth-child(2) { left: 25%; animation-duration: 18s; animation-delay: 4s; }
+    .bg-particles span:nth-child(3) { left: 40%; animation-duration: 24s; animation-delay: 2s; }
+    .bg-particles span:nth-child(4) { left: 60%; animation-duration: 20s; animation-delay: 1s; }
+    .bg-particles span:nth-child(5) { left: 75%; animation-duration: 28s; animation-delay: 3s; }
+    .bg-particles span:nth-child(6) { left: 90%; animation-duration: 26s; animation-delay: 2s; }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) scale(0.8);
+        opacity: 0;
+      }
+      50% {
+        opacity: 0.7;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    .container {
+      animation: slideIn 1s ease-out;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+      width: 90%;
+      max-width: 900px;
+      margin: 80px auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    h2 {
+      text-align: center;
+      color: #6a1b9a;
+      font-size: 28px;
+      margin-bottom: 25px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    th, td {
+      padding: 14px 18px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #8e24aa;
+      color: white;
+    }
+
+    tr {
+      background-color: #f3e5f5;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    tr:hover {
+      background-color: #f8bbd0;
+      transform: scale(1.01);
+    }
+
+    tr:nth-child(even) {
+      background-color: #fbe9f0;
+    }
+
+    a {
+      display: block;
+      text-align: center;
+      margin-top: 30px;
+      color: #6a1b9a;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Floating particles background -->
+<div class="bg-particles">
+  <span></span><span></span><span></span>
+  <span></span><span></span><span></span>
+</div>
+
+<div class="container">
+  <h2>Submitted Responses</h2>
+  {% if responses|length > 1 %}
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Drawing</th>
+          <th>Dancing</th>
+          <th>Singing</th>
+          <th>Coding</th>
+          <th>Sports</th>
+          <th>Photographer</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for row in responses %}
+        <tr>
+          {% for item in row %}
+            <td>{{ item }}</td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p style="text-align:center;">No responses yet.</p>
+  {% endif %}
+  <a href="{{ url_for('career_form') }}">Back to Form</a>
+</div>
+</body>
+</html>
