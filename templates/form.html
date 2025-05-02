@@ -19,36 +19,51 @@
   <style>
     /* Basic Styles */
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
       padding: 0;
       height: 100vh;
-      transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for dark mode */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background-color 0.6s ease, color 0.6s ease; /* Smooth transition for background and text */
     }
 
     /* Dark Mode Styles */
     body.dark {
-      background-color: #333;
+      background-color: #2c2c2c;
       color: white;
     }
+
     body.dark h2, 
     body.dark label, 
     body.dark button {
       color: white;
     }
 
-    body.dark input, 
-    body.dark select, 
-    body.dark button {
-      background-color: #555;
-      color: white;
-      border: 1px solid #ccc;
+    body.dark .container {
+      background-color: #333;
+      border-radius: 12px;
+      padding: 40px;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     }
 
-    body.dark .container {
-      background-color: #444;
-      border-radius: 8px;
-      padding: 20px;
+    /* Light Mode Styles */
+    body {
+      background-color: #f7f7f7;
+      color: #333;
+    }
+
+    .container {
+      background-color: white;
+      border-radius: 12px;
+      padding: 40px;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
     }
 
     /* Particle background */
@@ -58,18 +73,101 @@
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: -1; /* Ensures particles stay behind other elements */
+      z-index: -1;
       pointer-events: none; /* Allow interaction with elements above */
     }
 
-    .container {
-      position: relative;
-      z-index: 1; /* Ensures form stays on top of the particles */
-      padding: 20px;
+    /* Form Styling */
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
     }
 
+    label {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    input[type="text"], input[type="checkbox"], select, button {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-size: 16px;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    input[type="text"], select {
+      background-color: #f1f1f1;
+    }
+
+    input[type="checkbox"] {
+      width: auto;
+      margin-right: 8px;
+    }
+
+    button {
+      background-color: #0056b3;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #004494;
+    }
+
+    button:focus {
+      outline: none;
+    }
+
+    .checkbox-label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    /* Toggle Theme Button */
     .toggle-theme {
+      display: flex;
+      justify-content: center;
       margin-bottom: 20px;
+    }
+
+    .toggle-theme button {
+      background-color: #4CAF50;
+      padding: 12px 24px;
+      border-radius: 6px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .toggle-theme button:hover {
+      background-color: #45a049;
+    }
+
+    /* Confetti effect (added animation) */
+    .confetti-piece {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #ffeb3b;
+      border-radius: 50%;
+      animation: confetti-fall 3s ease-out forwards;
+    }
+
+    @keyframes confetti-fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+      }
     }
   </style>
 </head>
@@ -79,6 +177,7 @@
 <div id="particles-js"></div>
 
 <div class="container">
+  <!-- Dark Mode Toggle Button -->
   <div class="toggle-theme">
     <button onclick="document.body.classList.toggle('dark')">Toggle Dark Mode</button>
   </div>
@@ -238,4 +337,3 @@
 
 </body>
 </html>
-
