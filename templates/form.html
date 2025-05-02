@@ -23,6 +23,7 @@
       margin: 0;
       padding: 0;
       height: 100vh;
+      transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for dark mode */
     }
 
     /* Dark Mode Styles */
@@ -58,11 +59,17 @@
       width: 100%;
       height: 100%;
       z-index: -1; /* Ensures particles stay behind other elements */
+      pointer-events: none; /* Allow interaction with elements above */
     }
 
     .container {
       position: relative;
       z-index: 1; /* Ensures form stays on top of the particles */
+      padding: 20px;
+    }
+
+    .toggle-theme {
+      margin-bottom: 20px;
     }
   </style>
 </head>
@@ -231,3 +238,4 @@
 
 </body>
 </html>
+
