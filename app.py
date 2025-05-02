@@ -46,7 +46,6 @@ def career_form():
 
         return redirect(url_for('career_form'))
 
-    # Send current timestamp to force audio reload
     return render_template('form.html', timestamp=datetime.utcnow().timestamp())
 
 @app.route('/responses')
@@ -91,8 +90,4 @@ def get_career_suggestions(interests):
     return suggestions
 
 if __name__ == '__main__':
-    if not os.path.exists('static'):
-        os.makedirs('static')
-
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(debug=True)
