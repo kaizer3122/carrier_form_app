@@ -13,18 +13,27 @@
     gtag('config', 'G-WFEFC4HS9W');
   </script>
 
+  <!-- Include Particles.js -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
   <style>
-    /* [Your CSS remains unchanged, omitted here for brevity] */
-    /* ...all the CSS you already had... */
+    /* Your existing CSS here */
+
+    /* Style for the particles background */
+    #particles-js {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1; /* Ensures particles stay in the background */
+    }
   </style>
 </head>
 <body>
 
 <!-- Particle Background -->
-<div class="bg-particles">
-  <span></span><span></span><span></span>
-  <span></span><span></span><span></span>
-</div>
+<div id="particles-js"></div>
 
 <div class="container">
   <div class="toggle-theme">
@@ -82,5 +91,107 @@
 
   <a href="{{ url_for('show_responses') }}">View All Responses</a>
 </div>
+
+<!-- Initialize Particles.js -->
+<script>
+  particlesJS('particles-js', {
+    particles: {
+      number: {
+        value: 100,
+        density: {
+          enable: true,
+          value_area: 800
+        }
+      },
+      color: {
+        value: "#ffffff"
+      },
+      shape: {
+        type: "circle",
+        stroke: {
+          width: 0,
+          color: "#000000"
+        },
+        polygon: {
+          nb_sides: 5
+        }
+      },
+      opacity: {
+        value: 0.5,
+        random: true,
+        anim: {
+          enable: true,
+          speed: 1,
+          opacity_min: 0.1,
+          sync: false
+        }
+      },
+      size: {
+        value: 3,
+        random: true,
+        anim: {
+          enable: false,
+          speed: 4,
+          size_min: 0.1,
+          sync: false
+        }
+      },
+      line_linked: {
+        enable: true,
+        distance: 150,
+        color: "#ffffff",
+        opacity: 0.4,
+        width: 1
+      },
+      move: {
+        enable: true,
+        speed: 3,
+        direction: "none",
+        random: true,
+        straight: false,
+        out_mode: "out",
+        bounce: false,
+        attract: {
+          enable: false,
+          rotateX: 600,
+          rotateY: 1200
+        }
+      }
+    },
+    interactivity: {
+      detect_on: "canvas",
+      events: {
+        onhover: {
+          enable: true,
+          mode: "repulse"
+        },
+        onclick: {
+          enable: true,
+          mode: "push"
+        },
+        resize: true
+      },
+      modes: {
+        grab: {
+          distance: 400,
+          line_linked: {
+            opacity: 1
+          }
+        },
+        repulse: {
+          distance: 200
+        },
+        push: {
+          particles_nb: 4
+        },
+        remove: {
+          particles_nb: 2
+        }
+      }
+    },
+    retina_detect: true
+  });
+</script>
+
 </body>
 </html>
