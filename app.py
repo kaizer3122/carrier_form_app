@@ -7,8 +7,9 @@ import os
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
-CSV_FILE = os.path.join(os.path.dirname(__file__), 'responses.csv')
-VOICE_FILE = os.path.join('static', 'voice.mp3')
+BASE_DIR = os.path.dirname(__file__)
+CSV_FILE = os.path.join(BASE_DIR, 'responses.csv')
+VOICE_FILE = os.path.join(BASE_DIR, 'static', 'voice.mp3')
 
 @app.route('/', methods=['GET', 'POST'])
 def career_form():
@@ -37,7 +38,6 @@ def career_form():
         }
 
         suggestions = get_career_suggestions(interests)
-
         message = f"Thanks {name}, based on your interests, you could become: {', '.join(suggestions)}!"
         flash(message, "success")
 
@@ -88,6 +88,3 @@ def get_career_suggestions(interests):
     if not suggestions:
         suggestions.append("Creative Professional")
     return suggestions
-
-if __name__ == '__main__':
-    app.run(debug=True)
